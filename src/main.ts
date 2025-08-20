@@ -141,13 +141,21 @@ class TerminalResume {
         download resume.pdf
       </button>
       
-      <div class="command-line">
+      <div class="command-line" id="final-prompt">
         <span class="prompt-symbol">$</span>
-        <span class="typing-animation">_</span>
+        <span class="typing-animation" id="prompt-cursor">_</span>
       </div>
     `;
 
     this.attachEventListeners();
+  }
+
+  private showDownloadCommand(): void {
+    const promptCursor = document.getElementById("prompt-cursor");
+    if (promptCursor) {
+      promptCursor.className = "";
+      promptCursor.textContent = "curl -O moshe-azaria-resume.pdf";
+    }
   }
 
   private renderExperience(): string {
@@ -212,6 +220,7 @@ class TerminalResume {
       downloadBtn.addEventListener("click", () => {
         const pdfGenerator = new PDFGenerator();
         pdfGenerator.download();
+        this.showDownloadCommand();
       });
     }
   }
