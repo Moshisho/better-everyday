@@ -124,7 +124,7 @@ gh pr create --title "Update resume content" --body "Updated work experience and
 
 #### Automated CI Checks
 When PR is created, CI pipeline automatically runs:
-1. **Multi-Node Testing**: Tests on Node.js 18 & 20
+1. **Node.js 22 Testing**: Uses latest LTS version
 2. **Quality Gates**: 
    - TypeScript compilation check
    - Biome code quality validation

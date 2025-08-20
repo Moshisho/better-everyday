@@ -24,8 +24,9 @@ This project showcases how a coding agent (Claude Code) can rapidly build a comp
 ## 🔄 CI/CD Pipeline
 
 ### Continuous Integration (`ci.yml`)
-- **Multi-Node Testing**: Validates on Node.js 18 & 20
+- **Node.js 22**: Latest LTS version for optimal performance
 - **Quality Checks**: TypeScript compilation, Biome linting
+- **Build Validation**: Ensures production build succeeds
 - **Build Validation**: Ensures production build succeeds
 - **Artifact Storage**: Preserves build outputs for inspection
 
