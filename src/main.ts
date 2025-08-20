@@ -39,7 +39,7 @@ class TerminalResume {
     ) as HTMLElement;
 
     const bootMessages = [
-      "Initializing resume.exe...",
+      "Initializing ./resume_builder...",
       "Loading professional experience...",
       "Mounting skills database...",
       "Establishing network connections...",
@@ -47,8 +47,8 @@ class TerminalResume {
     ];
 
     for (const message of bootMessages) {
-      await this.typeText(bootContainer, `[  OK  ] ${message}`, 50);
-      await this.delay(300);
+      await this.typeText(bootContainer, `[  OK  ] ${message}`, 40);
+      await this.delay(250);
     }
 
     await this.delay(1000);
