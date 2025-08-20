@@ -143,19 +143,156 @@ class TerminalResume {
       
       <div class="command-line" id="final-prompt">
         <span class="prompt-symbol">$</span>
-        <span class="typing-animation" id="prompt-cursor">_</span>
+        <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type a command..." />
+        <span class="typing-animation hidden" id="prompt-cursor">_</span>
       </div>
+      <div id="command-output"></div>
     `;
 
     this.attachEventListeners();
   }
 
   private showDownloadCommand(): void {
+    const terminalInput = document.getElementById(
+      "terminal-input",
+    ) as HTMLInputElement;
     const promptCursor = document.getElementById("prompt-cursor");
-    if (promptCursor) {
+
+    if (terminalInput && promptCursor) {
+      terminalInput.style.display = "none";
       promptCursor.className = "";
       promptCursor.textContent = "curl -O moshe-azaria-resume.pdf";
     }
+  }
+
+  private isUnixCommand(command: string): boolean {
+    const unixCommands = [
+      "ls",
+      "cd",
+      "pwd",
+      "mkdir",
+      "rmdir",
+      "rm",
+      "cp",
+      "mv",
+      "cat",
+      "less",
+      "more",
+      "head",
+      "tail",
+      "grep",
+      "find",
+      "locate",
+      "which",
+      "whereis",
+      "man",
+      "info",
+      "ps",
+      "top",
+      "htop",
+      "kill",
+      "killall",
+      "jobs",
+      "bg",
+      "fg",
+      "nohup",
+      "chmod",
+      "chown",
+      "chgrp",
+      "umask",
+      "su",
+      "sudo",
+      "passwd",
+      "who",
+      "w",
+      "whoami",
+      "id",
+      "groups",
+      "finger",
+      "last",
+      "history",
+      "alias",
+      "unalias",
+      "tar",
+      "gzip",
+      "gunzip",
+      "zip",
+      "unzip",
+      "wget",
+      "curl",
+      "ssh",
+      "scp",
+      "rsync",
+      "ping",
+      "traceroute",
+      "netstat",
+      "ss",
+      "lsof",
+      "df",
+      "du",
+      "mount",
+      "umount",
+      "fdisk",
+      "free",
+      "uname",
+      "uptime",
+      "date",
+      "cal",
+      "echo",
+      "printf",
+      "wc",
+      "sort",
+      "uniq",
+      "cut",
+      "awk",
+      "sed",
+      "tr",
+      "diff",
+      "patch",
+      "cmp",
+      "file",
+      "stat",
+      "touch",
+      "ln",
+      "readlink",
+      "vim",
+      "nano",
+      "emacs",
+      "git",
+      "make",
+      "gcc",
+      "python",
+      "node",
+      "npm",
+    ];
+
+    const commandName = command.trim().split(" ")[0].toLowerCase();
+    return unixCommands.includes(commandName);
+  }
+
+  private handleCommand(command: string): void {
+    const outputDiv = document.getElementById("command-output");
+    if (!outputDiv) return;
+
+    const response = this.isUnixCommand(command)
+      ? "That looks like a fine command!"
+      : "Nice try...";
+
+    const outputLine = document.createElement("div");
+    outputLine.className = "output";
+    outputLine.innerHTML = `<span class="prompt-symbol">$</span> ${command}<br>${response}`;
+    outputDiv.appendChild(outputLine);
+
+    // Clear input
+    const terminalInput = document.getElementById(
+      "terminal-input",
+    ) as HTMLInputElement;
+    if (terminalInput) {
+      terminalInput.value = "";
+    }
+
+    // Scroll to bottom
+    outputDiv.scrollIntoView({ behavior: "smooth", block: "end" });
   }
 
   private renderExperience(): string {
@@ -222,6 +359,45 @@ class TerminalResume {
         pdfGenerator.download();
         this.showDownloadCommand();
       });
+    }
+
+    const terminalInput = document.getElementById(
+      "terminal-input",
+    ) as HTMLInputElement;
+    const promptCursor = document.getElementById("prompt-cursor");
+    
+    if (terminalInput) {
+      terminalInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const command = terminalInput.value.trim();
+          if (command) {
+            this.handleCommand(command);
+          }
+        }
+      });
+
+      // Show/hide cursor based on input focus
+      terminalInput.addEventListener("focus", () => {
+        if (promptCursor) {
+          promptCursor.style.display = "none";
+        }
+      });
+
+      terminalInput.addEventListener("blur", () => {
+        if (promptCursor && terminalInput.value === "") {
+          promptCursor.style.display = "inline";
+        }
+      });
+
+      // Focus input when user clicks anywhere on the terminal
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest(".terminal-body")) {
+          terminalInput.focus();
+        }
+      });
+
+      // Don't auto-focus the input initially
     }
   }
 }

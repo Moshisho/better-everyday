@@ -97,6 +97,34 @@ body {
   animation: blink 1s infinite;
 }
 
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  flex: 1;
+  margin-left: 5px;
+  caret-color: var(--terminal-accent);
+}
+
+.terminal-input::placeholder {
+  color: var(--terminal-dim);
+}
+
+#command-output {
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+#prompt-cursor {
+  margin-left: 5px;
+}
+
 @keyframes blink {
   0%,
   50% {
