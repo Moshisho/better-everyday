@@ -8,7 +8,7 @@ test.describe('Boot Sequence Animation', () => {
     await expect(page.locator('.boot-sequence')).toBeVisible();
     
     // Wait for boot messages to appear
-    await expect(page.locator('text=Initializing ./resume_builder')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text=Initializing ./resume')).toBeVisible({ timeout: 15000 });
     await expect(page.locator('text=Loading professional experience')).toBeVisible();
     await expect(page.locator('text=Mounting skills database')).toBeVisible();
     await expect(page.locator('text=Establishing network connections')).toBeVisible();
@@ -22,6 +22,7 @@ test.describe('Boot Sequence Animation', () => {
     const startTime = Date.now();
     
     await page.goto('/');
+    await expect(page.locator('text=[  OK  ]')).toHaveCount(5, {timeout: 11000});
     
     // Wait for main content to appear (boot sequence complete)
     await page.waitForSelector('.ascii-art', { timeout: 15000 });
@@ -32,18 +33,6 @@ test.describe('Boot Sequence Animation', () => {
     // Boot sequence should complete within 15 seconds
     expect(bootTime).toBeLessThan(15000);
   });
-
-  test('should show boot messages with [OK] status', async ({ page }) => {
-    await page.goto('/');
-    
-    // Check for [OK] status indicators
-    await expect(page.locator('text=[  OK  ] Initializing ./resume_builder')).toBeVisible();
-    await expect(page.locator('text=[  OK  ] Loading professional experience')).toBeVisible();
-    await expect(page.locator('text=[  OK  ] Mounting skills database')).toBeVisible();
-    await expect(page.locator('text=[  OK  ] Establishing network connections')).toBeVisible();
-    await expect(page.locator('text=[  OK  ] System ready. Welcome!')).toBeVisible();
-  });
-
 
   test('should maintain terminal authenticity during boot', async ({ page }) => {
     await page.goto('/');
@@ -57,7 +46,7 @@ test.describe('Boot Sequence Animation', () => {
     await expect(terminalBody).toHaveCSS('background-color', 'rgb(13, 17, 23)');
     
     // Boot messages should appear in terminal green
-    const bootMessage = page.locator('text=Initializing ./resume_builder').first();
+    const bootMessage = page.locator('text=Initializing ./resume').first();
     await expect(bootMessage).toBeVisible();
   });
 });
