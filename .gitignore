@@ -1,3 +1,9 @@
+# Playwright
+test-results
+
+# Mac
+.DS_Store
+
 # Logs
 logs
 *.log
