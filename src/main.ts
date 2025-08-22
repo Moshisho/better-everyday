@@ -12,7 +12,14 @@ class TerminalResume {
 
   private init(): void {
     this.createTerminalStructure();
-    this.startBootSequence();
+    
+    // Check for skip-boot parameter (for testing)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('skip-boot') === 'true') {
+      this.showMainContent();
+    } else {
+      this.startBootSequence();
+    }
   }
 
   private createTerminalStructure(): void {
