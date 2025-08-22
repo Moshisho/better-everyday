@@ -1,0 +1,64 @@
+#!/bin/bash
+
+echo "🎭 Starting Playwright Debug with auto-arrangement..."
+
+# Start Playwright
+npx playwright test "$@" --debug &
+PLAYWRIGHT_PID=$!
+
+# Monitor for windows in background
+(
+sleep 2 # Give Playwright time to start
+
+python3 << 'PYTHON'
+import time
+import subprocess
+import sys
+
+def run_applescript(script):
+    return subprocess.run(['osascript', '-e', script], capture_output=True, text=True)
+
+def find_and_arrange_windows():
+    script = '''
+    tell application "System Events"
+        set browserWin to missing value
+        set inspectorWin to missing value
+        
+        repeat with proc in (application processes whose name is "Chromium")
+            repeat with win in windows of proc
+                set winTitle to title of win
+                if winTitle is "about:blank" and browserWin is missing value then
+                    set browserWin to win
+                else if winTitle contains "Playwright Inspector" then
+                    set inspectorWin to win
+                end if
+            end repeat
+        end repeat
+        
+        if browserWin is not missing value and inspectorWin is not missing value then
+            set bounds of browserWin to {0, 0, 960, 1080}
+            set bounds of inspectorWin to {960, 0, 1920, 1080}
+            return "success"
+        else
+            return "not_found"
+        end if
+    end tell
+    '''
+    
+    result = run_applescript(script)
+    return result.stdout.strip() == "success"
+
+# Wait up to 30 seconds for windows
+for i in range(60):  # 30 seconds with 0.5s intervals
+    if find_and_arrange_windows():
+        print("✅ Playwright windows arranged!")
+        break
+    time.sleep(0.5)
+else:
+    print("⏰ Timeout waiting for windows")
+
+PYTHON
+) &
+
+# Wait for Playwright to finish
+wait $PLAYWRIGHT_PID
