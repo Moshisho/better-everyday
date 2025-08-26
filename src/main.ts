@@ -1,5 +1,4 @@
 import "./style.css";
-import { PDFGenerator } from "./pdf-generator";
 import { resumeData } from "./resume-data";
 
 class TerminalResume {
@@ -54,7 +53,7 @@ class TerminalResume {
     ];
 
     for (const message of bootMessages) {
-      await this.typeText(bootContainer, `${message} [  OK  ]`, 40);
+      await this.typeText(bootContainer, `${message} √`, 40);
       await this.delay(250);
     }
 
@@ -144,8 +143,8 @@ class TerminalResume {
       </div>
       ${this.renderContact()}
       
-      <button class="download-btn" id="download-pdf">
-        download resume.pdf
+      <button class="download-btn" id="view-cv">
+        view cv
       </button>
       
       <div class="command-line" id="final-prompt">
@@ -159,7 +158,7 @@ class TerminalResume {
     this.attachEventListeners();
   }
 
-  private showDownloadCommand(): void {
+  private showViewCvCommand(): void {
     const terminalInput = document.getElementById(
       "terminal-input",
     ) as HTMLInputElement;
@@ -168,7 +167,7 @@ class TerminalResume {
     if (terminalInput && promptCursor) {
       terminalInput.style.display = "none";
       promptCursor.className = "";
-      promptCursor.textContent = "curl -O moshe-azaria-resume.pdf";
+      promptCursor.textContent = "cat cv.txt";
     }
   }
 
@@ -359,12 +358,11 @@ class TerminalResume {
   }
 
   private attachEventListeners(): void {
-    const downloadBtn = document.getElementById("download-pdf");
-    if (downloadBtn) {
-      downloadBtn.addEventListener("click", () => {
-        const pdfGenerator = new PDFGenerator();
-        pdfGenerator.download();
-        this.showDownloadCommand();
+    const viewCvBtn = document.getElementById("view-cv");
+    if (viewCvBtn) {
+      viewCvBtn.addEventListener("click", () => {
+        window.location.href = "/cv.html";
+        this.showViewCvCommand();
       });
     }
 

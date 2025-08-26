@@ -48,26 +48,19 @@ test.describe('Interactive Terminal Functionality', () => {
     }
   });
 
-  test('should handle PDF download and show curl command', async ({ page }) => {
-    // Wait for download button
-    await page.waitForSelector('#download-pdf', { timeout: 5000 });
+  test('should navigate to CV viewer and show cat command', async ({ page }) => {
+    // Wait for view CV button
+    await page.waitForSelector('#view-cv', { timeout: 5000 });
     
-    // Start download monitoring
-    const downloadPromise = page.waitForEvent('download');
+    // Click view CV button
+    await page.locator('#view-cv').click();
     
-    // Click download button
-    await page.locator('#download-pdf').click();
+    // Should navigate to CV page
+    await page.waitForURL('**/cv.html');
     
-    // Wait for download to start
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toBe('Moshe_Azaria_Resume.pdf');
-    
-    // Check that terminal shows curl command
-    await expect(page.locator('#prompt-cursor')).toContainText('curl -O moshe-azaria-resume.pdf');
-    
-    // Verify input is hidden after download
-    const terminalInput = page.locator('#terminal-input');
-    await expect(terminalInput).toHaveCSS('display', 'none');
+    // Should see CV viewer page elements
+    await expect(page.locator('.cv-content')).toBeVisible();
+    await expect(page.locator('#download-cv')).toBeVisible();
   });
 
   test('should focus input when clicking in terminal area', async ({ page }) => {

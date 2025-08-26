@@ -1,0 +1,119 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ███╗   ███╗ ██████╗ ███████╗██╗  ██╗███████╗                              │
+│  ████╗ ████║██╔═══██╗██╔════╝██║  ██║██╔════╝                              │
+│  ██╔████╔██║██║   ██║███████╗███████║█████╗                                │
+│  ██║╚██╔╝██║██║   ██║╚════██║██╔══██║██╔══╝                                │
+│  ██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║███████╗                              │
+│  ╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝                              │
+│                                                                             │
+│   █████╗ ███████╗ █████╗ ██████╗ ██╗ █████╗                                │
+│  ██╔══██╗╚══███╔╝██╔══██╗██╔══██╗██║██╔══██╗                               │
+│  ███████║  ███╔╝ ███████║██████╔╝██║███████║                               │
+│  ██╔══██║ ███╔╝  ██╔══██║██╔══██╗██║██╔══██║                               │
+│  ██║  ██║███████╗██║  ██║██║  ██║██║██║  ██║                               │
+│  ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝                               │
+│                                                                             │
+│                    Automation, QA & DevOps Team Lead                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── CONTACT ──────────────────────────────────────────────────────────────────┐
+│ 📧  moshisho84@gmail.com                                                    │
+│ 💼  linkedin.com/in/moshisho                                                │
+│ 🔗  github.com/Moshisho                                                     │
+│ 📚  stackoverflow.com/users/2470092/moshisho                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── SUMMARY ──────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│ > Senior Junior Super Mega Ninja Developer - I'm less of a fan of labels,  │
+│   I like automation & CI processes :)                                      │
+│                                                                             │
+│ > B.Sc in Physics - a problem solver.                                      │
+│                                                                             │
+│ > Best practices liker.                                                    │
+│                                                                             │
+│ I'm a self-educator in lots of domains and can't define myself to one,     │
+│ but whatever I do, I like to get into it and deepen my knowledge in it     │
+│ as I've done in QA and Automation development. With this approach it's     │
+│ easier to provide end 2 end solutions for CI processes.                   │
+│                                                                             │
+│ In the course of years I've learned much about human behaviour and our     │
+│ world from my business and academic experience along with the scientific   │
+│ way of thinking of things and testing them.                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── EXPERIENCE ───────────────────────────────────────────────────────────────┐
+│                                                                             │
+│ [2020-Present]  Automation, QA & DevOps Team Lead @ Sage                   │
+│ ├─ I don't really do anything... I simply have amazing people in my team.  │
+│                                                                             │
+│ [2019-2020]     Automation & CI/CD @ Sage                                  │
+│ ├─ Focused on automation and continuous integration/deployment processes    │
+│                                                                             │
+│ [2018-2019]     Full Stack Developer @ Gett                                │
+│ ├─ Full-stack development work at mobility services company                 │
+│                                                                             │
+│ [2017-2018]     Automation Tech Lead @ Gett                                │
+│ ├─ Led automation initiatives and technical strategy                       │
+│                                                                             │
+│ [2016-2017]     Automation Engineer @ Hewlett Packard Enterprise           │
+│ ├─ Automating regression & e2e tests as part of the enablement team        │
+│ ├─ Developing Framework (Java) - Selenium wrapper, Maven, Best practices   │
+│ ├─ CI/CD Process - Jenkins, Docker, VeriGreen, Reporting                   │
+│ ├─ Partly DevOps to ENABLE agile development                               │
+│                                                                             │
+│ [2015-2016]     Automation Developer & Lead @ Music Lab LTD                │
+│ ├─ Developing automation solutions - QA and BI: Nightly builds, App cycle  │
+│ ├─ Using C# mainly - Visual Studio, NuGet, EF                              │
+│ ├─ In-Charge of automation department - software and hardware               │
+│ ├─ Managed servers (Microsoft - IIS, SQL, HyperV. Ubuntu - Zabbix)         │
+│                                                                             │
+│ [2013-2015]     QA Automation Developer @ Music Lab LTD                    │
+│ ├─ Automation development for variety of applications                      │
+│ ├─ Programming in C# with AutoIt, SQL, Batch and HTML                      │
+│ ├─ Emphasis on clean, readable and professional code                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── EDUCATION ────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│ 🎓  B.Sc in Physics                                                         │
+│     Bar-Ilan University (2008 - 2010)                                      │
+│                                                                             │
+│ 🎓  Java Programmer Certificate                                             │
+│     Nasi Technologies (2012 - 2013)                                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── TECHNICAL SKILLS ─────────────────────────────────────────────────────────┐
+│                                                                             │
+│ Core Areas:    [Testing] [Quality Assurance] [DevOps] [CI/CD] [Automation] │
+│                                                                             │
+│ Languages:     [Java] [C#] [HTML] [SQL] [JavaScript] [TypeScript]          │
+│                                                                             │
+│ Frameworks:    [Selenium] [Maven] [Jenkins] [Docker] [TestNG]              │
+│                                                                             │
+│ Platforms:     [Windows] [Linux] [Ubuntu]                                  │
+│                                                                             │
+│ Databases:     [SQL Server] [MongoDB]                                      │
+│                                                                             │
+│ Cloud/DevOps:  [Docker] [Jenkins] [CI/CD Pipelines] [VeriGreen]            │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── LANGUAGES ────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│ Hebrew  ████████████████████████ Native or Bilingual                       │
+│ English ████████████████████░░░░ Professional Working                      │
+│ Spanish ████████░░░░░░░░░░░░░░░░ Elementary                                 │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌── GENERATED ────────────────────────────────────────────────────────────────┐
+│ Generated on: $(date)                                                       │
+│ Format: Plain Text Resume for ATS & HR Systems                             │
+│ Encoding: UTF-8 with ASCII-compatible characters                           │
+└─────────────────────────────────────────────────────────────────────────────┘
