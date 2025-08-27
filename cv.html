@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moshe Azaria - CV</title>
     <link rel="stylesheet" href="src/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         .cv-viewer {
             max-width: 1000px;
@@ -113,8 +114,9 @@
         </div>
         
         <div class="cv-actions">
-            <a href="/" class="cv-btn secondary">← Back to Portfolio</a>
-            <button id="download-cv" class="cv-btn">Download CV.txt</button>
+            <a href="/?skip-boot=true" class="cv-btn secondary">← Back to Portfolio</a>
+            <button id="download-cv" class="cv-btn">Download TXT</button>
+            <button id="download-pdf" class="cv-btn">Download PDF</button>
         </div>
     </div>
 
@@ -131,7 +133,7 @@
             }
         }
 
-        // Download CV function
+        // Download CV as TXT function
         function downloadCV() {
             const link = document.createElement('a');
             link.href = '/resources/cv.txt';
@@ -141,10 +143,70 @@
             document.body.removeChild(link);
         }
 
+        // Download CV as PDF function
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Get the CV content
+            const cvContent = document.getElementById('cv-content').textContent;
+            
+            // PDF styling to match terminal theme
+            pdf.setFont('courier', 'normal');
+            pdf.setFontSize(8);
+            pdf.setTextColor(0, 255, 0); // Terminal green
+            
+            // Split content into lines and add to PDF
+            const lines = cvContent.split('\n');
+            const pageHeight = 297; // A4 height in mm
+            const margin = 15;
+            const lineHeight = 3;
+            let yPosition = margin;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                
+                // Check if we need a new page
+                if (yPosition > pageHeight - margin) {
+                    pdf.addPage();
+                    yPosition = margin;
+                }
+                
+                // Handle long lines by splitting them
+                const maxCharsPerLine = 95;
+                if (line.length > maxCharsPerLine) {
+                    const chunks = [];
+                    for (let j = 0; j < line.length; j += maxCharsPerLine) {
+                        chunks.push(line.substring(j, j + maxCharsPerLine));
+                    }
+                    
+                    for (const chunk of chunks) {
+                        if (yPosition > pageHeight - margin) {
+                            pdf.addPage();
+                            yPosition = margin;
+                        }
+                        pdf.text(chunk, margin, yPosition);
+                        yPosition += lineHeight;
+                    }
+                } else {
+                    pdf.text(line, margin, yPosition);
+                    yPosition += lineHeight;
+                }
+            }
+            
+            // Save the PDF
+            pdf.save('Moshe_Azaria_CV.pdf');
+        }
+
         // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
             loadCV();
             document.getElementById('download-cv').addEventListener('click', downloadCV);
+            document.getElementById('download-pdf').addEventListener('click', downloadPDF);
         });
     </script>
 </body>

@@ -30,7 +30,7 @@ class TerminalResume {
             <div class="terminal-button minimize"></div>
             <div class="terminal-button maximize"></div>
           </div>
-          <div class="terminal-title">moshe@resume:~$ better-everyday</div>
+          <div class="terminal-title">moshe-azaria@resume: >_ /better-everyday/</div>
         </div>
         <div class="terminal-body" id="terminal-content">
           <div class="boot-sequence"></div>
@@ -52,8 +52,13 @@ class TerminalResume {
       "System ready. Welcome!",
     ];
 
+    // Find the longest message to determine padding
+    const maxLength = Math.max(...bootMessages.map((msg) => msg.length));
+
     for (const message of bootMessages) {
-      await this.typeText(bootContainer, `${message} √`, 40);
+      // Pad message with spaces and add multiple spaces before √
+      const paddedMessage = `${message.padEnd(maxLength)}      √`;
+      await this.typeText(bootContainer, paddedMessage, 40);
       await this.delay(250);
     }
 
@@ -287,7 +292,7 @@ class TerminalResume {
     const outputLine = document.createElement("div");
     outputLine.className = "output";
     outputLine.innerHTML = `<span class="prompt-symbol">$</span> ${command}<br>${response}`;
-    outputDiv.appendChild(outputLine);
+    outputDiv.prepend(outputLine);
 
     // Clear input
     const terminalInput = document.getElementById(
@@ -360,9 +365,10 @@ class TerminalResume {
   private attachEventListeners(): void {
     const viewCvBtn = document.getElementById("view-cv");
     if (viewCvBtn) {
-      viewCvBtn.addEventListener("click", () => {
-        window.location.href = "/cv.html";
+      viewCvBtn.addEventListener("click", async () => {
         this.showViewCvCommand();
+        await this.delay(1200);
+        window.location.href = "/cv.html";
       });
     }
 

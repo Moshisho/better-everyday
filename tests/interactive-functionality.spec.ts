@@ -48,11 +48,8 @@ test.describe('Interactive Terminal Functionality', () => {
     }
   });
 
-  test('should navigate to CV viewer and show cat command', async ({ page }) => {
-    // Wait for view CV button
-    await page.waitForSelector('#view-cv', { timeout: 5000 });
-    
-    // Click view CV button
+  test('should navigate to CV viewer and back', async ({ page }) => {
+    await page.goto('/?skip-boot=true');
     await page.locator('#view-cv').click();
     
     // Should navigate to CV page
@@ -61,6 +58,9 @@ test.describe('Interactive Terminal Functionality', () => {
     // Should see CV viewer page elements
     await expect(page.locator('.cv-content')).toBeVisible();
     await expect(page.locator('#download-cv')).toBeVisible();
+    
+    await page.locator('text="← Back to Portfolio"').click();
+    await page.waitForURL('**/skip-boot**');
   });
 
   test('should focus input when clicking in terminal area', async ({ page }) => {

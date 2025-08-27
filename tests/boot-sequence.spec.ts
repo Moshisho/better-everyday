@@ -38,7 +38,7 @@ test.describe('Boot Sequence Animation', () => {
     
     // Check terminal structure during boot
     await expect(page.locator('.terminal-header')).toBeVisible();
-    await expect(page.locator('.terminal-title')).toContainText('moshe@resume:~$ better-everyday');
+    await expect(page.locator('.terminal-title')).toContainText('moshe-azaria@resume: >_ /better-everyday/');
     
     // Check that terminal styling is applied during boot
     const terminalBody = page.locator('.terminal-body');
