@@ -27,8 +27,8 @@
 
 ┌── SUMMARY ──────────────────────────────────────────────────────────────────┐
 │                                                                             │
-│ > Senior Junior Super Mega Ninja Developer - I'm less of a fan of labels,   │
-│   I like automation & CI processes :)                                       │
+│ > Senior Junior Super Mega Ninja Developer -- I'm less of a fan of labels.  │
+│   I like Automation & CI processes :)                                       │
 │                                                                             │
 │ > B.Sc in Physics - a problem solver.                                       │
 │                                                                             │
@@ -40,7 +40,7 @@
 │ easier to provide end 2 end solutions for CI processes.                     │
 │                                                                             │
 │ In the course of years I've learned much about human behaviour and our      │
-│ world from my business and academic experience along with the scientific    │
+│ world from my business and academic experience, along with the scientific   │
 │ way of thinking of things and testing them.                                 │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -76,6 +76,9 @@
 │ ├─ Programming in C# with AutoIt, SQL, Batch and HTML                       │
 │ ├─ Emphasis on clean, readable and professional code                        │
 │                                                                             │
+| [2011-2013]     Manual QA & Automation @ Music Lab LTD                      │
+│ ├─ Tested multiple Desktop and Web applications                             │
+│ ├─ Team player with emphasis on details and user experience                 │
 └─────────────────────────────────────────────────────────────────────────────┘
 
 ┌── EDUCATION ────────────────────────────────────────────────────────────────┐
