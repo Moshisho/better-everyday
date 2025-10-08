@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moshe Azaria - CV</title>
     <link rel="stylesheet" href="src/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         .cv-viewer {
             max-width: 1000px;
@@ -25,6 +25,18 @@
             color: var(--terminal-text);
             overflow-x: auto;
             margin-bottom: 20px;
+        }
+
+        .cv-content.pdf-export {
+            border: none;
+            border-radius: 0;
+            padding: 15px;
+            font-size: 11px;
+            line-height: 1.35;
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
         }
         
         .cv-actions {
@@ -143,63 +155,42 @@
             document.body.removeChild(link);
         }
 
-        // Download CV as PDF function
+        // Download CV as PDF function - renders the HTML as-is
         function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-            });
+            const element = document.getElementById('cv-content');
 
-            // Get the CV content
-            const cvContent = document.getElementById('cv-content').textContent;
-            
-            // PDF styling to match terminal theme
-            pdf.setFont('courier', 'normal');
-            pdf.setFontSize(8);
-            pdf.setTextColor(0, 255, 0); // Terminal green
-            
-            // Split content into lines and add to PDF
-            const lines = cvContent.split('\n');
-            const pageHeight = 297; // A4 height in mm
-            const margin = 15;
-            const lineHeight = 3;
-            let yPosition = margin;
-            
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                
-                // Check if we need a new page
-                if (yPosition > pageHeight - margin) {
-                    pdf.addPage();
-                    yPosition = margin;
-                }
-                
-                // Handle long lines by splitting them
-                const maxCharsPerLine = 95;
-                if (line.length > maxCharsPerLine) {
-                    const chunks = [];
-                    for (let j = 0; j < line.length; j += maxCharsPerLine) {
-                        chunks.push(line.substring(j, j + maxCharsPerLine));
-                    }
-                    
-                    for (const chunk of chunks) {
-                        if (yPosition > pageHeight - margin) {
-                            pdf.addPage();
-                            yPosition = margin;
-                        }
-                        pdf.text(chunk, margin, yPosition);
-                        yPosition += lineHeight;
-                    }
-                } else {
-                    pdf.text(line, margin, yPosition);
-                    yPosition += lineHeight;
-                }
-            }
-            
-            // Save the PDF
-            pdf.save('Moshe_Azaria_CV.pdf');
+            // Add PDF export class for optimized styling
+            element.classList.add('pdf-export');
+
+            const opt = {
+                margin: [5, 10, 5, 10],
+                filename: 'Moshe_Azaria_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    backgroundColor: '#0a0e27',
+                    logging: false,
+                    letterRendering: true,
+                    useCORS: true,
+                    windowWidth: 750,
+                    scrollY: 0,
+                    scrollX: 0,
+                    y: 0,
+                    x: 0
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait',
+                    compress: true
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Remove PDF export class after generation
+                element.classList.remove('pdf-export');
+            });
         }
 
         // Event listeners
