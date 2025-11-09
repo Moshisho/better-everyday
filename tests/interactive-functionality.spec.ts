@@ -60,7 +60,7 @@ test.describe('Interactive Terminal Functionality', () => {
     await expect(page.locator('#download-cv')).toBeVisible();
     
     await page.locator('text="← Back to Portfolio"').click();
-    await page.waitForURL('**/skip-boot**');
+    await expect(page.url()).toContain('skip-boot');
   });
 
   test('should focus input when clicking in terminal area', async ({ page }) => {
