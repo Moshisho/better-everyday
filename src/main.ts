@@ -1,5 +1,4 @@
 import "./style.css";
-import { PDFGenerator } from "./pdf-generator";
 import { resumeData } from "./resume-data";
 
 class TerminalResume {
@@ -31,7 +30,7 @@ class TerminalResume {
             <div class="terminal-button minimize"></div>
             <div class="terminal-button maximize"></div>
           </div>
-          <div class="terminal-title">moshe@resume:~$ better-everyday</div>
+          <div class="terminal-title">moshe-azaria@resume: >_ /better-everyday/</div>
         </div>
         <div class="terminal-body" id="terminal-content">
           <div class="boot-sequence"></div>
@@ -53,8 +52,13 @@ class TerminalResume {
       "System ready. Welcome!",
     ];
 
+    // Find the longest message to determine padding
+    const maxLength = Math.max(...bootMessages.map((msg) => msg.length));
+
     for (const message of bootMessages) {
-      await this.typeText(bootContainer, `${message} [  OK  ]`, 40);
+      // Pad message with spaces and add multiple spaces before √
+      const paddedMessage = `${message.padEnd(maxLength)}      √`;
+      await this.typeText(bootContainer, paddedMessage, 40);
       await this.delay(250);
     }
 
@@ -144,8 +148,8 @@ class TerminalResume {
       </div>
       ${this.renderContact()}
       
-      <button class="download-btn" id="download-pdf">
-        download resume.pdf
+      <button class="download-btn" id="view-cv">
+        view cv
       </button>
       
       <div class="command-line" id="final-prompt">
@@ -159,7 +163,7 @@ class TerminalResume {
     this.attachEventListeners();
   }
 
-  private showDownloadCommand(): void {
+  private showViewCvCommand(): void {
     const terminalInput = document.getElementById(
       "terminal-input",
     ) as HTMLInputElement;
@@ -168,7 +172,7 @@ class TerminalResume {
     if (terminalInput && promptCursor) {
       terminalInput.style.display = "none";
       promptCursor.className = "";
-      promptCursor.textContent = "curl -O moshe-azaria-resume.pdf";
+      promptCursor.textContent = "cat cv.txt";
     }
   }
 
@@ -288,7 +292,7 @@ class TerminalResume {
     const outputLine = document.createElement("div");
     outputLine.className = "output";
     outputLine.innerHTML = `<span class="prompt-symbol">$</span> ${command}<br>${response}`;
-    outputDiv.appendChild(outputLine);
+    outputDiv.prepend(outputLine);
 
     // Clear input
     const terminalInput = document.getElementById(
@@ -359,12 +363,12 @@ class TerminalResume {
   }
 
   private attachEventListeners(): void {
-    const downloadBtn = document.getElementById("download-pdf");
-    if (downloadBtn) {
-      downloadBtn.addEventListener("click", () => {
-        const pdfGenerator = new PDFGenerator();
-        pdfGenerator.download();
-        this.showDownloadCommand();
+    const viewCvBtn = document.getElementById("view-cv");
+    if (viewCvBtn) {
+      viewCvBtn.addEventListener("click", async () => {
+        this.showViewCvCommand();
+        await this.delay(1200);
+        window.location.href = "/cv.html";
       });
     }
 

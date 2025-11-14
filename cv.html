@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moshe Azaria - CV</title>
+    <link rel="stylesheet" href="src/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        .cv-viewer {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .cv-content {
+            background: var(--terminal-bg);
+            border: 2px solid var(--terminal-accent);
+            border-radius: 8px;
+            padding: 20px;
+            white-space: pre-wrap;
+            font-family: "JetBrains Mono", "Courier New", monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            color: var(--terminal-text);
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .cv-content.pdf-export {
+            border: none;
+            border-radius: 0;
+            padding: 15px;
+            font-size: 11px;
+            line-height: 1.35;
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        .cv-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cv-btn {
+            background: transparent;
+            border: 2px solid var(--terminal-accent);
+            color: var(--terminal-accent);
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cv-btn:hover {
+            background: var(--terminal-accent);
+            color: var(--terminal-bg);
+            box-shadow: 0 0 20px var(--terminal-accent);
+        }
+        
+        .cv-btn.secondary {
+            border-color: var(--terminal-dim);
+            color: var(--terminal-dim);
+        }
+        
+        .cv-btn.secondary:hover {
+            background: var(--terminal-dim);
+            color: var(--terminal-bg);
+            box-shadow: 0 0 20px var(--terminal-dim);
+        }
+        
+        .header-info {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--terminal-accent);
+        }
+        
+        .header-info h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header-info p {
+            color: var(--terminal-dim);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .cv-viewer {
+                padding: 10px;
+            }
+            
+            .cv-content {
+                padding: 15px;
+                font-size: 11px;
+            }
+            
+            .cv-actions {
+                flex-direction: column;
+            }
+            
+            .cv-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-viewer">
+        <div class="header-info">
+            <h1>CV Viewer</h1>
+            <p>Terminal-formatted resume ready for download</p>
+        </div>
+        
+        <div class="cv-content" id="cv-content">
+            Loading CV...
+        </div>
+        
+        <div class="cv-actions">
+            <a href="/?skip-boot=true" class="cv-btn secondary">← Back to Portfolio</a>
+            <button id="download-cv" class="cv-btn">Download TXT</button>
+            <button id="download-pdf" class="cv-btn">Download PDF</button>
+        </div>
+    </div>
+
+    <script>
+        // Load and display CV content
+        async function loadCV() {
+            try {
+                const response = await fetch('/resources/cv.txt');
+                const cvText = await response.text();
+                document.getElementById('cv-content').textContent = cvText;
+            } catch (error) {
+                document.getElementById('cv-content').textContent = 'Error loading CV. Please try again later.';
+                console.error('Failed to load CV:', error);
+            }
+        }
+
+        // Download CV as TXT function
+        function downloadCV() {
+            const link = document.createElement('a');
+            link.href = '/resources/cv.txt';
+            link.download = 'Moshe_Azaria_CV.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Download CV as PDF function - renders the HTML as-is
+        function downloadPDF() {
+            const element = document.getElementById('cv-content');
+
+            // Add PDF export class for optimized styling
+            element.classList.add('pdf-export');
+
+            const opt = {
+                margin: [5, 10, 5, 10],
+                filename: 'Moshe_Azaria_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    backgroundColor: '#0a0e27',
+                    logging: false,
+                    letterRendering: true,
+                    useCORS: true,
+                    windowWidth: 750,
+                    scrollY: 0,
+                    scrollX: 0,
+                    y: 0,
+                    x: 0
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait',
+                    compress: true
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Remove PDF export class after generation
+                element.classList.remove('pdf-export');
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCV();
+            document.getElementById('download-cv').addEventListener('click', downloadCV);
+            document.getElementById('download-pdf').addEventListener('click', downloadPDF);
+        });
+    </script>
+</body>
+</html>

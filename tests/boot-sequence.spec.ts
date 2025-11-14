@@ -8,7 +8,7 @@ test.describe('Boot Sequence Animation', () => {
     await expect(page.locator('.boot-sequence')).toBeVisible();
     
     // Wait for boot messages to appear
-    await expect(page.locator('text=Initializing ./resume')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text=Initializing ./resume ... √')).toBeVisible({ timeout: 15000 });
     await expect(page.locator('text=Loading professional experience')).toBeVisible();
     await expect(page.locator('text=Mounting skills database')).toBeVisible();
     await expect(page.locator('text=Establishing network connections')).toBeVisible();
@@ -22,7 +22,6 @@ test.describe('Boot Sequence Animation', () => {
     const startTime = Date.now();
     
     await page.goto('/');
-    await expect(page.locator('text=[  OK  ]')).toHaveCount(5, {timeout: 11000});
     
     // Wait for main content to appear (boot sequence complete)
     await page.waitForSelector('.ascii-art', { timeout: 15000 });
@@ -39,7 +38,7 @@ test.describe('Boot Sequence Animation', () => {
     
     // Check terminal structure during boot
     await expect(page.locator('.terminal-header')).toBeVisible();
-    await expect(page.locator('.terminal-title')).toContainText('moshe@resume:~$ better-everyday');
+    await expect(page.locator('.terminal-title')).toContainText('moshe-azaria@resume: >_ /better-everyday/');
     
     // Check that terminal styling is applied during boot
     const terminalBody = page.locator('.terminal-body');

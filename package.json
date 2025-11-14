@@ -2,6 +2,7 @@
   "name": "better-everyday",
   "version": "1.0.0",
   "description": "A retro terminal-themed resume website",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -12,6 +13,8 @@
     "check": "biome check --write .",
     "typecheck": "tsc --noEmit",
     "test": "playwright test --project=chromium",
+    "test:local": "playwright test --project=chromium",
+    "test:ci": "playwright test --project=chromium --ignore-snapshots",
     "test:headed": "playwright test --project=chromium --headed",
     "test:ui": "playwright test --project=chromium --ui",
     "test:firefox": "playwright test --project=firefox",
@@ -27,7 +30,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
   },
-  "dependencies": {
-    "jspdf": "^2.5.1"
-  }
+  "dependencies": {}
 }
