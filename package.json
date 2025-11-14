@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "test": "playwright test --project=chromium",
     "test:local": "playwright test --project=chromium",
-    "test:ci": "playwright test --project=chromium --ignore-glob '**/resume-appearance.spec.ts'",
+    "test:ci": "playwright test --project=chromium --ignore-snapshots",
     "test:headed": "playwright test --project=chromium --headed",
     "test:ui": "playwright test --project=chromium --ui",
     "test:firefox": "playwright test --project=firefox",
