@@ -2,34 +2,39 @@ name: Deploy PR Preview
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   contents: write
+  deployments: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build for PR preview
-      run: BASE_PATH=/better-everyday/pr-${{ github.event.number }}/ npm run build
-      
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
-        destination_dir: pr-${{ github.event.number }}
-        keep_files: true
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for PR preview
+        run: BASE_PATH=/better-everyday/pr-${{ github.event.number }}/ npm run build
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: pr-${{ github.event.number }}
+          keep_files: true
+
+      - name: Create deployment
+        run: |
+          gh deployment create --ref ${{ github.sha }} --environment pr-preview --payload '{"url": "https://moshisho.github.io/better-everyday/pr-${{ github.event.number }}/"}'
