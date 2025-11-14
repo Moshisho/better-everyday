@@ -12,6 +12,7 @@ test.describe('Resume Website Appearance', () => {
   });
 
   test('should display ASCII art and main content', async ({ page }) => {
+    test.setTimeout(20* 1000);
     await page.goto('/');
     
     // Wait for ASCII art to appear (main content loaded)
